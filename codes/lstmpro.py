@@ -2,12 +2,11 @@ import boto3
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import os
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error
-
+import os
 
 
 def download_file_from_s3(bucket_name, object_key, local_filename):
@@ -46,7 +45,7 @@ def build_and_train_model(X_train, y_train, sequence_length):
     return model
 
 
-def evaluate_and_plot_model(model, X_test, y_test, dates, filename):
+def evaluate_and_plot_model(model, X_test, y_test, dates, filename, output_dir):
     """Evaluar el modelo y generar gráficas."""
     predictions = model.predict(X_test)
     predictions = scaler.inverse_transform(predictions)
@@ -59,7 +58,6 @@ def evaluate_and_plot_model(model, X_test, y_test, dates, filename):
     plt.ylabel('Precio de Cierre')
     plt.title(f'Predicción del Precio de las Acciones - {filename}')
     plt.legend()
-    plt.show()
 
     # Guardar la gráfica como imagen
     image_filename = os.path.join(output_dir, f'{filename.split(".")[0]}_prediction.png')
@@ -109,4 +107,4 @@ for file in files:
     model = build_and_train_model(X_train, y_train, sequence_length)
 
     # Evaluar y graficar el modelo
-    evaluate_and_plot_model(model, X_test, y_test, dates, file)
+    evaluate_and_plot_model(model, X_test, y_test, dates, file, output_dir)
