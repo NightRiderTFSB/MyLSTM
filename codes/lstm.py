@@ -16,9 +16,9 @@ bucket_name = "proyecto3er-parcial-all-time-stock-price-data"
 object_key = "NFLX.csv"
 local_filename = "/home/starryboy/Starcode/Python/LSTM/codes/NFLX.csv"
 
-#print("Downloading data...")
-#s3.download_file(bucket_name, object_key, local_filename)
-#print("Downloaded!")
+print("Downloading data...")
+s3.download_file(bucket_name, object_key, local_filename)
+print("Downloaded!")
 
 ### ACCESSO A LOS DATOS
 # Leemos el csv y lo limpiamos
