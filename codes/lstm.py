@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 
 s3 = boto3.client('s3')
@@ -72,5 +73,10 @@ plt.ylabel('Precio de Cierre')
 plt.title('Predicción del Precio de las Acciones de Netflix')
 plt.legend()
 plt.show()
+#Metricas de error
+mse = mean_squared_error(y_test, predictions)
+mae = mean_absolute_error(y_test, predictions)
 
+print(f'MSE: {mse}')
+print(f'MAE: {mae}')
 
